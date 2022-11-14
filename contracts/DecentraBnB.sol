@@ -30,7 +30,8 @@ contract DecentraBnB {
 
     event newResevation(address indexed renterAddress, uint256 id, uint256 _numberOfDays, uint256 timestamp); // This event will be emited when a property is rented
     event newCheckOut(address indexed renterAddress, uint256 id, uint256 timestamp);                          // This event will be emited when traveller checks-out.
-    event canceledBooking(address indexed renterAddress, uint256 id, uint256 amount, uint256 timestamp);
+    event canceledBooking(address indexed renterAddress, uint256 id, uint256 amount, uint256 timestamp);      // This event will be emited when traveller or host cancels the booking.
+
 
     //Using a modifier because we will want some functions to be called only by "Property Owner"
     modifier onlyPropertyOwner {
