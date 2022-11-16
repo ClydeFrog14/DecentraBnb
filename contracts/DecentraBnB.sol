@@ -14,7 +14,6 @@ contract DecentraBnB {
         uint256 priceDaily;
         uint256 maxGuests;
         address currentRenter;
-        string propertyType;
         string city;
         string propertyDescription;
         string coordinates;
@@ -54,7 +53,6 @@ contract DecentraBnB {
         rentals[1].priceDaily = 0.15 ether;
         rentals[1].maxGuests = 3;
         rentals[1].currentRenter = address(0);
-        rentals[1].propertyType = "Studio";
         rentals[1].city = "Geneva";
         rentals[1].propertyDescription = "Peaceful studio with Jet d'Eau Fountain view";
         rentals[1].coordinates = "40.72585, -73.94001";
@@ -70,7 +68,6 @@ contract DecentraBnB {
         rentals[2].priceDaily = 1.0 ether;
         rentals[2].maxGuests = 6;
         rentals[2].currentRenter = address(0);
-        rentals[2].propertyType = "Villa";
         rentals[2].city = "Geneva";
         rentals[2].propertyDescription = "Villa by the Lake Geneva with heated pool near Versoix";
         rentals[2].coordinates = "41.94585, -72.95345";
@@ -79,7 +76,6 @@ contract DecentraBnB {
         rentals[2].numberOfRatings = 0;
         rentals[2].AverageRating = 0;
         rentals[2].isSuperHost = false;
-
     }
 
 
@@ -146,9 +142,6 @@ contract DecentraBnB {
     function checkMaxGuests(uint256 _rental) view public returns(uint256){
         return rentals[_rental].maxGuests;
     }
-    function checkPropertyType(uint256 _rental) view public returns(string memory){
-        return rentals[_rental].propertyType;
-    }
     function checkCity(uint256 _rental) view public returns(string memory){
         return rentals[_rental].city;
     }
@@ -175,23 +168,15 @@ contract DecentraBnB {
             rentals[_rental].currentRenter = address(0);
         }
     }
-
     function changePriceDaily(uint256 _rental, uint256 _price) onlyPropertyOwner public {
         rentals[_rental].priceDaily = _price;
     }
-
     function changemaxGuests(uint256 _rental, uint256 _maxGuests) onlyPropertyOwner public {
         rentals[_rental].maxGuests = _maxGuests;
     }
-
-    function changePropertyType(uint256 _rental, string memory _newType) onlyPropertyOwner public {
-        rentals[_rental].propertyType = _newType;
-    }
-
     function changePropertyDescription(uint256 _rental, string memory _newDescription) onlyPropertyOwner public {
         rentals[_rental].propertyDescription = _newDescription;
     }
-    
     function changeCoordinates(uint256 _rental, string memory _newCoordinates) onlyPropertyOwner public {
         rentals[_rental].coordinates = _newCoordinates;
     }
