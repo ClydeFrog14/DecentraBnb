@@ -19,6 +19,7 @@ contract DecentraBnB {
         string propertyDescription;
         string coordinates;
         bool rentalAvailability;
+        bool isSuperHost;
         uint256 sumOfRatings;
         uint256 numberOfRatings;
         uint256 AverageRating;
@@ -31,7 +32,6 @@ contract DecentraBnB {
     event newResevation(address indexed renterAddress, uint256 id, uint256 _numberOfDays, uint256 timestamp); // This event will be emited when a property is rented
     event newCheckOut(address indexed renterAddress, uint256 id, uint256 timestamp);                          // This event will be emited when traveller checks-out.
     event canceledBooking(address indexed renterAddress, uint256 id, uint256 amount, uint256 timestamp);      // This event will be emited when traveller or host cancels the booking.
-
 
     //Using a modifier because we will want some functions to be called only by "Property Owner"
     modifier onlyPropertyOwner {
@@ -62,6 +62,8 @@ contract DecentraBnB {
         rentals[1].sumOfRatings = 0;
         rentals[1].numberOfRatings = 0;
         rentals[1].AverageRating = 0;
+        rentals[1].isSuperHost = false;
+
 
 
         rentals[2].id = 36483011;
@@ -76,6 +78,7 @@ contract DecentraBnB {
         rentals[2].sumOfRatings = 0;
         rentals[2].numberOfRatings = 0;
         rentals[2].AverageRating = 0;
+        rentals[2].isSuperHost = false;
 
     }
 
@@ -105,11 +108,11 @@ contract DecentraBnB {
         rentals[_rental].numberOfRatings++;
         rentals[_rental].AverageRating = rentals[_rental].sumOfRatings / rentals[_rental].numberOfRatings;
         // Superhost if rating is higher than 9
-        if rentals[_rental].AverageRating >= 9 {
-            rentals[_rental].isSuperHost =1;
+        if (rentals[_rental].AverageRating >= 9) {
+            rentals[_rental].isSuperHost =true;
         }
         else {
-            rentals[_rental].isSuperHost =0;
+            rentals[_rental].isSuperHost =false;
         }
         //Variables back to normal
         rentals[_rental].currentRenter = address(0);
@@ -161,7 +164,7 @@ contract DecentraBnB {
     function checkNumberOfRatings(uint256 _rental) view public returns(uint256){
         return rentals[_rental].numberOfRatings;
     }
-        function checkIfSuperHost(uint256 _rental) view public returns(bool){
+    function checkIfSuperHost(uint256 _rental) view public returns(bool){
         return rentals[_rental].isSuperHost;
     }
     
