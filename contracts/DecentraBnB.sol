@@ -104,6 +104,13 @@ contract DecentraBnB {
         rentals[_rental].sumOfRatings = rentals[_rental].sumOfRatings + _rating;
         rentals[_rental].numberOfRatings++;
         rentals[_rental].AverageRating = rentals[_rental].sumOfRatings / rentals[_rental].numberOfRatings;
+        // Superhost if rating is higher than 9
+        if rentals[_rental].AverageRating >= 9 {
+            rentals[_rental].isSuperHost =1;
+        }
+        else {
+            rentals[_rental].isSuperHost =0;
+        }
         //Variables back to normal
         rentals[_rental].currentRenter = address(0);
         changeRentalAvailability(_rental, true);
@@ -153,6 +160,9 @@ contract DecentraBnB {
     }
     function checkNumberOfRatings(uint256 _rental) view public returns(uint256){
         return rentals[_rental].numberOfRatings;
+    }
+        function checkIfSuperHost(uint256 _rental) view public returns(bool){
+        return rentals[_rental].isSuperHost;
     }
     
         // Setter Functions //
